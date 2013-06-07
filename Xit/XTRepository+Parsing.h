@@ -17,7 +17,8 @@ extern NSString *XTCommitSHAKey,
 @interface XTRepository (Reading)
 
 - (BOOL)
-    readRefsWithLocalBlock:(void (^)(NSString *name, NSString *commit))localBlock
+    readRefsWithLocalBlock:(void (^)(NSString *name, NSString *commit))
+                           localBlock
                remoteBlock:(void (^)(NSString *remoteName, NSString *branchName,
                                      NSString *commit))remoteBlock
                   tagBlock:(void (^)(NSString *name, NSString *commit))tagBlock;

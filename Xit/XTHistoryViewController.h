@@ -36,10 +36,14 @@
 - (IBAction)renameBranch:(id)sender;
 - (IBAction)mergeBranch:(id)sender;
 - (IBAction)deleteBranch:(id)sender;
+
 - (IBAction)renameTag:(id)sender;
 - (IBAction)deleteTag:(id)sender;
+
+- (IBAction)fetchRemote:(id)sender;
 - (IBAction)renameRemote:(id)sender;
 - (IBAction)deleteRemote:(id)sender;
+
 - (IBAction)popStash:(id)sender;
 - (IBAction)applyStash:(id)sender;
 - (IBAction)dropStash:(id)sender;

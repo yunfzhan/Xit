@@ -72,6 +72,7 @@
 
 - (BOOL)merge:(NSString *)name error:(NSError **)error
 {
+  *error = nil;
   [self executeGitWithArgs:@[ @"merge", name ] error:error];
   return *error == nil;
 }
@@ -89,6 +90,13 @@
   }
 
   return res;
+}
+
+- (BOOL)fetch:(NSString *)remote error:(NSError *__autoreleasing *)error
+{
+  *error = nil;
+  [self executeGitWithArgs:@[ @"fetch", remote ] error:error];
+  return *error == nil;
 }
 
 - (BOOL)checkout:(NSString *)branch error:(NSError **)resultError

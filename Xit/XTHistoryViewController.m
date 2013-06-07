@@ -262,6 +262,14 @@
         errorString:@"Delete tag failed"];
 }
 
+- (IBAction)fetchRemote:(id)sender
+{
+  [self callCMBlock:^(XTSideBarItem *item, NSError *__autoreleasing *error) {
+                      [repo fetch:[item title] error:error]; }
+     verifyingClass:[XTRemoteItem class]
+        errorString:@"Fetch failed"];
+}
+
 - (IBAction)renameRemote:(id)sender
 {
   [self editSelectedSidebarRow];

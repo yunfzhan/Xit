@@ -14,6 +14,7 @@
 - (BOOL)addRemote:(NSString *)name withUrl:(NSString *)url;
 - (BOOL)deleteRemote:(NSString *)name error:(NSError **)error;
 - (BOOL)push:(NSString *)remote;
+- (BOOL)fetch:(NSString *)remote error:(NSError **)error;
 - (BOOL)checkout:(NSString *)branch error:(NSError **)error;
 - (BOOL)merge:(NSString *)name error:(NSError **)error;
 
