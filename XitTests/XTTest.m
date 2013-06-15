@@ -41,13 +41,16 @@
 {
   remoteRepoPath =
       [NSString stringWithFormat:@"%@remotetestrepo", NSTemporaryDirectory()];
+  remoteRepoPath = [remoteRepoPath stringByResolvingSymlinksInPath];
   remoteRepository = [self createRepo:remoteRepoPath];
 }
 
 - (void)addInitialRepoContent
 {
-  STAssertTrue([self commitNewTextFile:@"file1.txt" content:@"some text"], nil);
-  file1Path = [repoPath stringByAppendingPathComponent:@"file1.txt"];
+  file1RelativePath = @"file1.txt";
+  file1FullPath = [repoPath stringByAppendingPathComponent:file1RelativePath];
+  STAssertTrue([self commitNewTextFile:file1RelativePath content:@"some text"],
+               nil);
 }
 
 - (BOOL)commitNewTextFile:(NSString *)name content:(NSString *)content
@@ -70,31 +73,31 @@
   return YES;
 }
 
-- (XTRepository *)createRepo:(NSString *)repoName
+- (XTRepository *)createRepo:(NSString *)path
 {
-  NSLog(@"[createRepo] repoName=%@", repoName);
+  NSLog(@"[createRepo] repoName=%@", path);
   NSFileManager *fileManager = [NSFileManager defaultManager];
 
-  if ([fileManager fileExistsAtPath:repoName]) {
-    [fileManager removeItemAtPath:repoName error:nil];
+  if ([fileManager fileExistsAtPath:path]) {
+    [fileManager removeItemAtPath:path error:nil];
   }
-  [fileManager createDirectoryAtPath:repoName
+  [fileManager createDirectoryAtPath:path
          withIntermediateDirectories:YES
                           attributes:nil
                                error:nil];
 
   NSURL *repoURL = [NSURL URLWithString:
-          [NSString stringWithFormat:@"file://localhost%@", repoName]];
+          [NSString stringWithFormat:@"file://localhost%@", path]];
 
   XTRepository *repo = [[XTRepository alloc] initWithURL:repoURL];
 
   if (![repo initializeRepository]) {
-    STFail(@"initializeRepository '%@' FAIL!!", repoName);
+    STFail(@"initializeRepository '%@' FAIL!!", path);
   }
 
   if (![fileManager
-          fileExistsAtPath:[NSString stringWithFormat:@"%@/.git", repoName]]) {
-    STFail(@"%@/.git NOT Found!!", repoName);
+          fileExistsAtPath:[NSString stringWithFormat:@"%@/.git", path]]) {
+    STFail(@"%@/.git NOT Found!!", path);
   }
 
   return repo;
@@ -128,7 +131,7 @@
 {
   NSError *error;
 
-  [text writeToFile:file1Path
+  [text writeToFile:file1FullPath
          atomically:YES
            encoding:NSASCIIStringEncoding
               error:&error];

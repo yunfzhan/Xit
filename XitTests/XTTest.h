@@ -5,7 +5,7 @@
 @interface XTTest : SenTestCase {
   NSString *repoPath;
   NSString *remoteRepoPath;
-  NSString *file1Path;
+  NSString *file1RelativePath, *file1FullPath;
   XTRepository *repository, *remoteRepository;
   BOOL reloadDetected;
 }

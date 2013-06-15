@@ -1,5 +1,6 @@
 #import "XTRepository+Commands.h"
 #import <ObjectiveGit/ObjectiveGit.h>
+#import "GTRepository+Xit.h"
 
 @implementation XTRepository (Commands)
 
@@ -174,17 +175,53 @@
       nil;
 }
 
-- (BOOL)addFile:(NSString *)file
+// A no-write version so that addAllFiles can write at the end.
+- (BOOL)addFileNoWrite:(NSString *)file
 {
   NSError *error = nil;
-  BOOL result = NO;
 
-  [self executeGitWithArgs:@[ @"add", file ] error:&error];
+  [[gtRepo index] addFile:file error:&error];
+  return error == nil;
+}
 
-  if (error == nil) {
-    result = YES;
+- (BOOL)addFile:(NSString *)file
+{
+  if ([self addFileNoWrite:file]) {
+    NSError *error = nil;
+
+    return [[gtRepo index] write:&error];
   }
+  return NO;
+}
 
+- (BOOL)addAllFiles
+{
+  __block BOOL shouldWrite = NO;
+  __block BOOL result = YES;
+
+  [gtRepo enumerateRelativeFileStatusUsingBlock:^(
+      NSString *path, GTRepositoryFileStatus status, BOOL *stop) {
+    switch (status) {
+      case GTRepositoryFileStatusWorkingTreeNew:
+      case GTRepositoryFileStatusWorkingTreeModified:
+      case GTRepositoryFileStatusWorkingTreeDeleted:
+        if ([self addFileNoWrite:path]) {
+          shouldWrite = YES;
+        } else {
+          *stop = YES;
+          result = NO;
+        }
+        break;
+
+      default:
+        break;
+    }
+  }];
+  if (shouldWrite) {
+    NSError *error = nil;
+
+    result = [[gtRepo index] write:&error];
+  }
   return result;
 }
 

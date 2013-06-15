@@ -10,6 +10,10 @@
 
 @implementation XTFileListDataSourceTest
 
+- (void)addInitialRepoContent
+{
+}
+
 - (void)testHistoricFileList
 {
   NSString *txt = @"some text";
@@ -20,7 +24,7 @@
           atomically:YES
             encoding:NSASCIIStringEncoding
                error:nil];
-    [repository addFile:@"--all"];
+    [repository addAllFiles];
     [repository commitWithMessage:@"commit"];
   }
 
@@ -28,7 +32,7 @@
   [hds setRepo:repository];
   [self waitForRepoQueue];
 
-  int expectedNF = 11;
+  int expectedNF = 10;
   for (XTHistoryItem *item in hds.items) {
     repository.selectedCommit = item.sha;
 
@@ -77,7 +81,7 @@
                             withIntermediateDirectories:YES
                                              attributes:nil
                                                   error:nil];
-  [[NSFileManager defaultManager] removeItemAtPath:file1Path error:nil];
+  [[NSFileManager defaultManager] removeItemAtPath:file1FullPath error:nil];
 
   for (int n = 0; n < 12; n++) {
     NSString *file =
@@ -88,7 +92,7 @@
             encoding:NSASCIIStringEncoding
                error:nil];
   }
-  [repository addFile:@"--all"];
+  [repository addAllFiles];
   [repository commitWithMessage:@"commit"];
 
   XTHistoryDataSource *hds = [[XTHistoryDataSource alloc] init];
@@ -103,12 +107,12 @@
   [self waitForRepoQueue];
 
   NSInteger nf = [flds outlineView:nil numberOfChildrenOfItem:nil];
-  STAssertTrue((nf == 2), @"found %d files", nf);
+  STAssertEquals(nf, 2L, nil);
 
   for (int rootIdx = 0; rootIdx < nf; rootIdx++) {
     NSTreeNode *root = [flds outlineView:nil child:rootIdx ofItem:nil];
     NSInteger rnf = [flds outlineView:nil numberOfChildrenOfItem:root];
-    STAssertTrue((rnf == 3), @"found %d files", nf);
+    STAssertEquals(rnf, 3L, nil);
   }
 }
 

@@ -36,13 +36,13 @@
       }
     }
 
-    NSString *testFile =
-        [NSString stringWithFormat:@"%@/file%d.txt", repoPath, n];
-    NSString *txt = [NSString stringWithFormat:@"some text %d", n];
-    [txt writeToFile:testFile
-          atomically:YES
-            encoding:NSASCIIStringEncoding
-               error:nil];
+    NSString *testFile = [repoPath stringByAppendingPathComponent:
+        [NSString stringWithFormat:@"file%d.txt", n]];
+    NSString *content = [NSString stringWithFormat:@"some text %d", n];
+    [content writeToFile:testFile
+              atomically:YES
+                encoding:NSASCIIStringEncoding
+                   error:nil];
 
     if (![defaultManager fileExistsAtPath:testFile]) {
       STFail(@"testFile NOT Found!!");
@@ -51,8 +51,8 @@
       STFail(@"add file '%@'", testFile);
     }
     if (![repository commitWithMessage:
-                [NSString stringWithFormat:@"new %@", testFile]]) {
-      STFail(@"Commit with mesage 'new %@'", testFile);
+                [NSString stringWithFormat:@"new file%d.txt", n]]) {
+      STFail(@"Commit with mesage 'new file%d.txt", n);
     }
   }
 
@@ -65,14 +65,12 @@
   [items enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
     XTHistoryItem *item = (XTHistoryItem *)obj;
 
-    if (idx != (items.count - 1)) {
-      STAssertTrue(item.lineInfo.numColumns == 1,
-                   @"%lu - incorrect numColumns=%lu", idx,
-                   item.lineInfo.numColumns);
+    if (idx == (items.count - 1)) {
+      STAssertEquals(item.lineInfo.numColumns, 0UL,
+                     @"item %d", idx);
     } else {
-      STAssertTrue(item.lineInfo.numColumns == 0,
-                   @"%lu - incorrect numColumns=%lu", idx,
-                   item.lineInfo.numColumns);
+      STAssertEquals(item.lineInfo.numColumns, 1UL,
+                     @"item %d", idx);
     }
   }];
 }

@@ -162,7 +162,7 @@
   [self assertStashes:expectedRemains];
 
   NSError *error = nil;
-  NSString *text = [NSString stringWithContentsOfFile:file1Path
+  NSString *text = [NSString stringWithContentsOfFile:file1FullPath
                                              encoding:NSASCIIStringEncoding
                                                 error:&error];
 
@@ -291,11 +291,11 @@
   STAssertEqualObjects([self.statusData valueForKey:XTStatusTextKey],
                        @"Merged master into task", nil);
 
-  NSString *file2Path = [repoPath stringByAppendingPathComponent:file2Name];
+  NSString *file2FullPath = [repoPath stringByAppendingPathComponent:file2Name];
 
-  STAssertTrue([[NSFileManager defaultManager] fileExistsAtPath:file1Path],
+  STAssertTrue([[NSFileManager defaultManager] fileExistsAtPath:file1FullPath],
                nil);
-  STAssertTrue([[NSFileManager defaultManager] fileExistsAtPath:file2Path],
+  STAssertTrue([[NSFileManager defaultManager] fileExistsAtPath:file2FullPath],
                nil);
 }
 
@@ -303,12 +303,12 @@
 {
   STAssertTrue([repository createBranch:@"task"], nil);
   STAssertTrue([self writeTextToFile1:@"conflicting branch"], nil);
-  STAssertTrue([repository addFile:file1Path], nil);
+  STAssertTrue([repository addFile:file1RelativePath], nil);
   STAssertTrue([repository commitWithMessage:@"conflicting commit"], nil);
 
   STAssertTrue([repository checkout:@"master" error:NULL], nil);
   STAssertTrue([self writeTextToFile1:@"conflicting master"], nil);
-  STAssertTrue([repository addFile:file1Path], nil);
+  STAssertTrue([repository addFile:file1RelativePath], nil);
   STAssertTrue([repository commitWithMessage:@"conflicting commit 2"], nil);
 
   id mockSidebar = [OCMockObject mockForClass:[XTSideBarOutlineView class]];
