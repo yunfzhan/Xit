@@ -1010,7 +1010,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = /Users/uncommon/Developer/Xit/Xit/prebuild.sh;
+			shellScript = $SRCROOT/Xit/prebuild.sh;
 		};
 		C3FA471E13D0F8E300AC4F9B /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
