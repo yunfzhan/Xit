@@ -124,6 +124,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		897A8DB918187BD60069DC95 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C3FA46F313D0F8E200AC4F9B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 897A8DB1181879BF0069DC95;
+			remoteInfo = "Pre-build check";
+		};
 		C3FA472213D0F8E300AC4F9B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C3FA46F313D0F8E200AC4F9B /* Project object */;
@@ -276,6 +283,8 @@
 		89794F891458CC9B00E38ACC /* XTOutputViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = XTOutputViewController.h; sourceTree = "<group>"; tabWidth = 2; };
 		89794F8A1458CC9B00E38ACC /* XTOutputViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = XTOutputViewController.m; sourceTree = "<group>"; tabWidth = 2; };
 		89794F8B1458CC9B00E38ACC /* XTOutputViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XTOutputViewController.xib; sourceTree = "<group>"; };
+		897A8DB2181879BF0069DC95 /* Pre-build check.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "Pre-build check.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
+		897A8DB818187AAD0069DC95 /* prebuild.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = prebuild.sh; path = Xit/prebuild.sh; sourceTree = "<group>"; };
 		89991CDB144E3FF400097A99 /* XTStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = XTStatusView.h; sourceTree = "<group>"; tabWidth = 2; };
 		89991CDC144E3FF400097A99 /* XTStatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = XTStatusView.m; sourceTree = "<group>"; tabWidth = 2; };
 		899D010C14216D2C0091DC6F /* sidebarTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sidebarTemplate.png; sourceTree = "<group>"; };
@@ -611,6 +620,7 @@
 			children = (
 				DD96C98F176976FC0003A30C /* ObjectiveGitFramework.xcodeproj */,
 				DD96C91317595A6D0003A30C /* RBSplitView.xcodeproj */,
+				897A8DB818187AAD0069DC95 /* prebuild.sh */,
 				C3FA470613D0F8E200AC4F9B /* Xit */,
 				8937B6EC1786F5DE00CB9BBC /* FullHeightToolbar */,
 				C3FA472413D0F8E300AC4F9B /* XitTests */,
@@ -626,6 +636,7 @@
 			children = (
 				C3FA46FC13D0F8E200AC4F9B /* Xit.app */,
 				C3FA472013D0F8E300AC4F9B /* XitTests.octest */,
+				897A8DB2181879BF0069DC95 /* Pre-build check.dylib */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -764,6 +775,21 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		897A8DB1181879BF0069DC95 /* Pre-build check */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 897A8DB3181879BF0069DC95 /* Build configuration list for PBXNativeTarget "Pre-build check" */;
+			buildPhases = (
+				897A8DB718187A680069DC95 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pre-build check";
+			productName = "Pre-build check";
+			productReference = 897A8DB2181879BF0069DC95 /* Pre-build check.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
 		C3FA46FB13D0F8E200AC4F9B /* Xit */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C3FA473113D0F8E300AC4F9B /* Build configuration list for PBXNativeTarget "Xit" */;
@@ -776,6 +802,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				897A8DBA18187BD60069DC95 /* PBXTargetDependency */,
 				DD96C9A51769772E0003A30C /* PBXTargetDependency */,
 				DD96C92817595ACF0003A30C /* PBXTargetDependency */,
 			);
@@ -838,6 +865,7 @@
 			targets = (
 				C3FA46FB13D0F8E200AC4F9B /* Xit */,
 				C3FA471F13D0F8E300AC4F9B /* XitTests */,
+				897A8DB1181879BF0069DC95 /* Pre-build check */,
 			);
 		};
 /* End PBXProject section */
@@ -971,6 +999,19 @@
 			shellPath = /bin/sh;
 			shellScript = "KEYWORDS=\"TODO|FIXME|\\?\\?\\?:|\\!\\!\\!:\"\nfind ${SRCROOT}/Xit ${SRCROOT}/XitTests \\( -name \"*.h\" -or -name \"*.m\" \\) -print0 | \\\nxargs -0 egrep --with-filename --line-number --only-matching \"($KEYWORDS).*\\$\" | \\\nperl -p -e \"s/($KEYWORDS)/ warning: \\$1/\"";
 		};
+		897A8DB718187A680069DC95 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = /Users/uncommon/Developer/Xit/Xit/prebuild.sh;
+		};
 		C3FA471E13D0F8E300AC4F9B /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1068,6 +1109,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		897A8DBA18187BD60069DC95 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 897A8DB1181879BF0069DC95 /* Pre-build check */;
+			targetProxy = 897A8DB918187BD60069DC95 /* PBXContainerItemProxy */;
+		};
 		C3FA472313D0F8E300AC4F9B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = C3FA46FB13D0F8E200AC4F9B /* Xit */;
@@ -1145,6 +1191,27 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		897A8DB4181879BF0069DC95 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		897A8DB5181879BF0069DC95 /* coverage */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = coverage;
+		};
+		897A8DB6181879BF0069DC95 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		C3D6CF2513D4DEE300D35D4D /* coverage */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1361,6 +1428,16 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		897A8DB3181879BF0069DC95 /* Build configuration list for PBXNativeTarget "Pre-build check" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				897A8DB4181879BF0069DC95 /* Debug */,
+				897A8DB5181879BF0069DC95 /* coverage */,
+				897A8DB6181879BF0069DC95 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C3FA46F613D0F8E200AC4F9B /* Build configuration list for PBXProject "Xit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
