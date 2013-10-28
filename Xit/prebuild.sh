@@ -23,7 +23,7 @@ else
 fi
 
 which -s brew
-if [ $? -ne 0 && ! -e /usr/local/bin/brew ]
+if [ $? -ne 0 ] && [ ! -e /usr/local/bin/brew ]
 then
   echo "warning: Brew not found. See http://brew.sh/"
 fi
