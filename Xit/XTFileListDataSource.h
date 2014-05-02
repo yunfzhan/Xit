@@ -7,7 +7,7 @@
 
 /**
   Provides all files from the selected commit's tree, with special icons
-  displayed for changed files. Entried are added for deleted files.
+  displayed for changed files. Entries are added for deleted files.
  */
 @interface XTFileListDataSource :
     XTFileListDataSourceBase<NSOutlineViewDataSource> {

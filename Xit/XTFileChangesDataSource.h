@@ -9,6 +9,7 @@
 @interface XTFileChangesDataSource :
     XTFileListDataSourceBase<NSOutlineViewDataSource>
 
+@property NSArray *changes;
 @property IBOutlet NSOutlineView *outlineView;
 @property IBOutlet XTFileViewController *controller;
 

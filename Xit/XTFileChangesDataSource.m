@@ -3,12 +3,6 @@
 #import "XTFileViewController.h"
 #import "XTRepository+Parsing.h"
 
-@interface XTFileChangesDataSource ()
-
-@property NSArray *changes;
-
-@end
-
 @implementation XTFileChangesDataSource
 
 - (void)reload

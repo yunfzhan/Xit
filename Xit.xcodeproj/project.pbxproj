@@ -84,6 +84,7 @@
 		DD3D9535182B5EC7004AF532 /* XTFileChangesDataSourceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3D9534182B5EC7004AF532 /* XTFileChangesDataSourceTest.m */; };
 		DD592093156EEE64005FBB0F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3FA470013D0F8E200AC4F9B /* Cocoa.framework */; };
 		DD592096156EEF40005FBB0F /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD592095156EEF40005FBB0F /* OCMock.framework */; };
+		DD7FD818191462E100D69DAC /* XTStashChangesDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = DD7FD817191462E100D69DAC /* XTStashChangesDataSource.m */; };
 		DD858B1F17FFDCB900264F7D /* XTTextPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD858B1E17FFDCB900264F7D /* XTTextPreviewController.m */; };
 		DD858B2C1801325500264F7D /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD858B2B1801325500264F7D /* CoreServices.framework */; };
 		DD96C931175B76990003A30C /* splitter.png in Resources */ = {isa = PBXBuildFile; fileRef = DD96C930175B76990003A30C /* splitter.png */; };
@@ -306,6 +307,8 @@
 		DD3D9534182B5EC7004AF532 /* XTFileChangesDataSourceTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTFileChangesDataSourceTest.m; sourceTree = "<group>"; };
 		DD579ADB15D08978007E4AFE /* NSDate+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extensions.h"; sourceTree = "<group>"; };
 		DD592095156EEF40005FBB0F /* OCMock.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OCMock.framework; sourceTree = SOURCE_ROOT; };
+		DD7FD816191462E100D69DAC /* XTStashChangesDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTStashChangesDataSource.h; sourceTree = "<group>"; };
+		DD7FD817191462E100D69DAC /* XTStashChangesDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTStashChangesDataSource.m; sourceTree = "<group>"; };
 		DD858B1D17FFDCB900264F7D /* XTTextPreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTTextPreviewController.h; sourceTree = "<group>"; };
 		DD858B1E17FFDCB900264F7D /* XTTextPreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTTextPreviewController.m; sourceTree = "<group>"; };
 		DD858B2B1801325500264F7D /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
@@ -703,6 +706,8 @@
 				DD96C938175ECE690003A30C /* XTFileViewController.m */,
 				DDD4707F16F3E7B000CA76FF /* XTPreviewItem.h */,
 				DDD4708016F3E7B000CA76FF /* XTPreviewItem.m */,
+				DD7FD816191462E100D69DAC /* XTStashChangesDataSource.h */,
+				DD7FD817191462E100D69DAC /* XTStashChangesDataSource.m */,
 				DD858B1D17FFDCB900264F7D /* XTTextPreviewController.h */,
 				DD858B1E17FFDCB900264F7D /* XTTextPreviewController.m */,
 			);
@@ -914,6 +919,7 @@
 				31F1E88313D3DCAC00F3B317 /* XTSideBarItem.m in Sources */,
 				C3D6CF1B13D4B18900D35D4D /* XTLocalBranchItem.m in Sources */,
 				C3D6CF1E13D4B74400D35D4D /* XTTagItem.m in Sources */,
+				DD7FD818191462E100D69DAC /* XTStashChangesDataSource.m in Sources */,
 				C3D6CF2113D4D5B200D35D4D /* XTRemotesItem.m in Sources */,
 				3174966513DF896E004C5546 /* XTHistoryDataSource.m in Sources */,
 				3174966813DF8A0C004C5546 /* XTSideBarDataSource.m in Sources */,
