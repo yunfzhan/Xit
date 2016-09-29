@@ -102,9 +102,16 @@ public class XTHistoryTableController: NSViewController
       
       walker.reset(options: [.topologicalSort, .timeSort])
       
-      let refs = repository.allRefs()
+      let refsAndDates = repository.allRefs().flatMap {
+        (ref) -> (ref: String, date: Date)? in
+        guard let commit = XTCommit(ref: ref, repository: repository)
+        else { return nil }
+        
+        return (ref, commit.commitDate)
+      }
+      let refs = refsAndDates.sorted { $0.date < $1.date }
+                             .map { $0.ref }
       
-      // TODO: sort refs by commit date
       for ref in refs {
         _ = repository.sha(forRef: ref).flatMap { try? walker.pushSHA($0) }
       }
