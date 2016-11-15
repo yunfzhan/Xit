@@ -3,7 +3,6 @@
 //
 
 #import "XTConstants.h"
-#import "XTDocument.h"
 #import "XTFileTreeDataSource.h"
 #import "XTFileChangesDataSource.h"
 #import "XTFileViewController.h"
@@ -16,5 +15,6 @@
 #import "XTSidebarDataSource.h"
 #import "XTSideBarOutlineView.h"
 #import "XTWebViewController.h"
+#import "XTQueueUtils.h"
 
 #import "NSAttributedString+XTExtensions.h"

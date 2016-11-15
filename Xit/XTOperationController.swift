@@ -14,7 +14,7 @@ class XTOperationController: NSObject
   init(windowController: XTWindowController)
   {
     self.windowController = windowController
-    self.repository = windowController.xtDocument!.repository
+    self.repository = windowController.repoDocument!.repository
   }
   
   /// Initiates the operation.

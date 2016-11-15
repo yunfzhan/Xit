@@ -8,7 +8,7 @@ class XTWindowController: NSWindowController, NSWindowDelegate
   @IBOutlet var activity: NSProgressIndicator!
   
   var historyController: XTHistoryViewController!
-  weak var xtDocument: XTDocument?
+  weak var repoDocument: RepositoryDocument?
   var titleBarController: XTTitleBarViewController? = nil
   var selectedCommitSHA: String?
   var refsChangedObserver: NSObjectProtocol?
@@ -37,7 +37,7 @@ class XTWindowController: NSWindowController, NSWindowDelegate
   
   override var document: AnyObject? {
     didSet {
-      xtDocument = document as! XTDocument?
+      repoDocument = document as! RepositoryDocument?
     }
   }
   
@@ -55,7 +55,7 @@ class XTWindowController: NSWindowController, NSWindowDelegate
     mainSplitView.removeArrangedSubview(mainSplitView.arrangedSubviews[1])
     window.makeFirstResponder(historyController.historyTable)
     
-    let repo = xtDocument!.repository!
+    let repo = repoDocument!.repository
     
     refsChangedObserver = NotificationCenter.default.addObserver(
         forName: NSNotification.Name.XTRepositoryRefsChanged,
@@ -105,7 +105,7 @@ class XTWindowController: NSWindowController, NSWindowDelegate
   func updateMiniwindowTitle()
   {
     guard let window = self.window,
-          let repo = xtDocument?.repository
+          let repo = repoDocument?.repository
     else { return }
   
     if let currentBranch = repo.currentBranch {
@@ -118,7 +118,7 @@ class XTWindowController: NSWindowController, NSWindowDelegate
   
   func updateBranchList()
   {
-    guard let repo = xtDocument?.repository,
+    guard let repo = repoDocument?.repository,
           let branches = try? repo.localBranches()
     else { return }
     
@@ -252,7 +252,7 @@ class XTWindowController: NSWindowController, NSWindowDelegate
   }
   
   func updateRemotesMenu(_ menu: NSMenu) {
-    let remoteNames = xtDocument!.repository.remoteNames
+    let remoteNames = repoDocument!.repository.remoteNames
     
     menu.removeAllItems()
     for name in remoteNames {
@@ -271,7 +271,7 @@ class XTWindowController: NSWindowController, NSWindowDelegate
     switch action {
 
       case #selector(self.refresh(_:)):
-        result = !xtDocument!.repository.isWriting
+        result = !repoDocument!.repository.isWriting
 
       case #selector(self.showHideSidebar(_:)):
         result = true
@@ -324,7 +324,7 @@ extension XTWindowController: XTTitleBarDelegate
 {
   func branchSelecetd(_ branch: String)
   {
-    try? xtDocument!.repository!.checkout(branch)
+    try? repoDocument!.repository.checkout(branch)
   }
   
   var viewStates: (sidebar: Bool, history: Bool, details: Bool)
@@ -353,7 +353,7 @@ extension XTWindowController: NSToolbarDelegate
               nibName: "TitleBar", bundle: nil)
     else { return }
     
-    let repository = xtDocument!.repository!
+    let repository = repoDocument!.repository
     let inverseBindingOptions =
         [NSValueTransformerNameBindingOption:
          NSValueTransformerName.negateBooleanTransformerName]
@@ -376,6 +376,6 @@ extension XTWindowController: NSToolbarDelegate
                                 options: inverseBindingOptions)
     viewController.spinner.startAnimation(nil)
     updateBranchList()
-    viewController.selectedBranch = xtDocument!.repository!.currentBranch
+    viewController.selectedBranch = repoDocument!.repository.currentBranch
   }
 }
