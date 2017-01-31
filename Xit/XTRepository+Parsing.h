@@ -43,7 +43,6 @@ typedef NS_ENUM(NSUInteger, XitChange) {
 - (BOOL)readStashesWithBlock:
     (void (^)(NSString *commit, NSUInteger index, NSString *name))block;
 
-- (BOOL)stageFile:(NSString*)file error:(NSError**)error;
 - (BOOL)stageAllFilesWithError:(NSError**)error;
 - (BOOL)unstageFile:(NSString*)file error:(NSError**)error;
 

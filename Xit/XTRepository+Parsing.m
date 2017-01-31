@@ -305,20 +305,6 @@
   return [self deltaFromDiff:diff withPath:path];
 }
 
-- (BOOL)stageFile:(NSString*)file error:(NSError**)error
-{
-  NSString *fullPath = [file hasPrefix:@"/"] ? file :
-      [_repoURL.path stringByAppendingPathComponent:file];
-  NSArray *args = [[NSFileManager defaultManager] fileExistsAtPath:fullPath]
-      ? @[ @"add", file ]
-      : @[ @"rm", file ];
-  NSData *result = [self executeGitWithArgs:args
-                                     writes:YES
-                                      error:error];
-  
-  return result != nil;
-}
-
 - (BOOL)stageAllFilesWithError:(NSError**)error
 {
   return [self executeGitWithArgs:@[ @"add", @"--all" ]

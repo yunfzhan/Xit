@@ -25,6 +25,17 @@ extension XTRepository: RepositoryType
 }
 
 
+extension git_error_code
+{
+  func assert() throws
+  {
+    if self != GIT_OK {
+      throw NSError.git_error(for: rawValue)
+    }
+  }
+}
+
+
 extension XTRepository
 {
   enum Error: Swift.Error
@@ -260,6 +271,38 @@ extension XTRepository
     }
     
     return (unstagedChange, stagedChange)
+  }
+  
+  /// Executes the callback with an index. Return true from the callback to
+  /// indicate that the index has been modified and should be written.
+  fileprivate func withIndex(callback: (OpaquePointer) throws -> Bool) throws
+  {
+    let indexPointer = UnsafeMutablePointer<OpaquePointer?>.allocate(capacity: 1)
+    let result = git_error_code(rawValue:
+            git_repository_index(indexPointer, gtRepo.git_repository()))
+    
+    try result.assert()
+    if let index = indexPointer.pointee {
+      if try callback(index) {
+        git_index_write(index)
+      }
+      git_index_free(index)
+    }
+  }
+  
+  @objc(stageFile:error:)
+  func stage(file: String) throws
+  {
+    try withIndex {
+      (index) in
+      let fullPath = self.repoURL.path.stringByAppendingPathComponent(file)
+      let result = git_error_code(FileManager.default.fileExists(atPath: fullPath)
+                   ? git_index_add_bypath(index, file)
+                   : git_index_remove_bypath(index, file))
+
+      try result.assert()
+      return true
+    }
   }
   
   /// Reverts the given workspace file to the contents at HEAD.
